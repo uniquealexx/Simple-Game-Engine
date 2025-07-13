@@ -1,0 +1,2 @@
+#define IDR_SHADER_VS 101
+#define IDR_SHADER_PS 102
