@@ -25,6 +25,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow) {
         return 1;
     }
 
+    // render here
+    renderer->AddPrimitive(std::make_unique<Cube>());
+    renderer->AddPrimitive(std::make_unique<Quad>());
+
     ShowWindow(hwnd, nCmdShow);
     UpdateWindow(hwnd);
 
@@ -36,7 +40,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow) {
         }
         else {
             renderer->RenderFrame();
-            renderer->AddPrimitive(std::make_unique<Triangle>());
         }
     }
 

@@ -26,3 +26,21 @@ void VertexBuffer::Bind(ID3D11DeviceContext* context) const {
     UINT offset = 0;
     context->IASetVertexBuffers(0, 1, &buffer, &stride, &offset);
 }
+
+bool VertexBuffer::CreateIndexBuffer(ID3D11Device* device, const UINT* data, UINT count) {
+    indexCount = count;
+
+    D3D11_BUFFER_DESC desc = {};
+    desc.ByteWidth = sizeof(UINT) * count;
+    desc.Usage = D3D11_USAGE_DEFAULT;
+    desc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+
+    D3D11_SUBRESOURCE_DATA initData = {};
+    initData.pSysMem = data;
+
+    return SUCCEEDED(device->CreateBuffer(&desc, &initData, &indexBuffer));
+}
+
+void VertexBuffer::BindIndexBuffer(ID3D11DeviceContext* context) const {
+    context->IASetIndexBuffer(indexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+}
